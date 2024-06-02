@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>FUSION</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 2rem;
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #e0e0e0;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                font-size: 3rem;
+                color: #333;
+            }
+            p {
+                font-size: 1.5rem;
+                color: #555;
+            }
+            main {
+                margin-top: 2rem;
+            }
+            input {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                padding: 0.5rem;
+                width: 80%;
+                max-width: 500px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+            }
+            button {
+                font-size: 2rem;
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: 5px;
+                background-color: #007BFF;
+                color: #fff;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            a {
+                color: #007BFF;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            @media (max-width: 900px) {
+                body {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>FUSION</h1>
+        <p>Trouvez l’inspiration et les idées pour vos projets grâce au subtil mélange de deux mots aléatoires.</p>
+        <main>
+            <input type="text" disabled value="tpust" />
+            <br>
+            <input type="text" disabled value="tpust" />
+            <br>
+            <button onclick="generer()">Générer</button>
+        </main>
+        <p>Site inspiré de : <a href="https://www.youtube.com/watch?v=yEFT5zqXtoY">Ockam Razor</a></p>
+
+        <script>
+            var mots = ["hihiha", "hassoul", "ihnonon", "labas"];
+            function generer() {
+                var inputs = document.getElementsByTagName("input");
+                inputs[0].value = mots[Math.floor(Math.random() * mots.length)];
+                do {
+                    inputs[1].value = mots[Math.floor(Math.random() * mots.length)];
+                } while (inputs[1].value == inputs[0].value);
+            }
+            generer();
+        </script>
+    </body>
+</html>

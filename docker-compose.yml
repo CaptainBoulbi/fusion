@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  web:
+    image: "httpd"
+    container_name: "fusion"
+    ports: 
+      - "6969:80"
+    volumes:
+      - ".:/usr/local/apache2/htdocs/"
