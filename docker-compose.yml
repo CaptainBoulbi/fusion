@@ -5,6 +5,6 @@ services:
     image: "httpd"
     container_name: "fusion"
     ports: 
-      - "6969:80"
+      - "6911:80"
     volumes:
       - ".:/usr/local/apache2/htdocs/"
