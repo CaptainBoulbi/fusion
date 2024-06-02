@@ -80,7 +80,16 @@
         <p>Site inspiré de : <a href="https://www.youtube.com/watch?v=yEFT5zqXtoY">Ockam Razor</a></p>
 
         <script>
-            var mots = ["hihiha", "hassoul", "ihnonon", "labas"];
+            var mots = [
+                // Ockam Razor
+                "vollaile", "rose", "bouche", "visuel", "conduire", "écrire", "légume", "ange", "ampule", "magie", "tour", "société", "légende", "village",
+                "gâteau", "colère", "sang", "lumière", "ville", "oreille", "muscle", "secrétaire", "viande", "dragon", "corde", "glace", "astéroïde", "oeil",
+                "diriger", "drapeau", "génie", "rouge", "jambon", "toboggan", "police", "humeur", "rire", "perdu", "ciel", "metal", "armes", "chirurgie",
+                "invention", "trou noir", "palais", "musique", "fusée", "samouraï", "porte", "revolution", "os", "vie", "lunnettes", "transformer", "sphinx", "course",
+                "espace", "prisonnier", "coeur", "odeur", "ninja", "social", "chat", "soleil", "langue", "baignoire", "volcan", "geisha", "message", "serpent",
+                "pont", "étoile", "océan", "miroir", "chirurgie esthétique", "arc en ciel", "voleur", "rêve", "loup garou", "tehcnologie"
+                // Custom
+            ];
             function generer() {
                 var inputs = document.getElementsByTagName("input");
                 inputs[0].value = mots[Math.floor(Math.random() * mots.length)];
