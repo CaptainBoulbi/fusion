@@ -77,6 +77,7 @@
             <br>
             <button onclick="generer()">Générer</button>
         </main>
+        <p><a onclick="telecharger()">Telechargez</a> la liste des mots.</p>
         <p>Site inspiré de : <a href="https://www.youtube.com/watch?v=yEFT5zqXtoY">Ockam Razor</a></p>
 
         <script>
@@ -102,6 +103,7 @@
                 "flamme", "enfant", "sauver", "programme", "voleur", "banque", "gouverner", "famille", "groupe", "coopérer", "police", "armé", "tank", "avion",
                 "chasse", "pêche", "science", "mouvement", "statue", "créature", "son", "bureau", "travail", "mythologie", "livre", "feuille", "artifice", "explosion",
             ];
+
             function generer() {
                 var inputs = document.getElementsByTagName("input");
                 inputs[0].value = mots[Math.floor(Math.random() * mots.length)];
@@ -110,6 +112,19 @@
                 } while (inputs[1].value == inputs[0].value);
             }
             generer();
+
+            function telecharger() {
+                var el = document.createElement('a');
+                el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(mots, null, 2)));
+                el.setAttribute('download', 'fusion_liste_mots.json');
+
+                el.style.display = 'none';
+                document.body.appendChild(el);
+
+                el.click();
+
+                document.body.removeChild(el);
+            }
         </script>
     </body>
 </html>
