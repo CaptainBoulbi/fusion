@@ -4,6 +4,7 @@ services:
   web:
     image: "httpd"
     container_name: "fusion"
+    restart: unless-stopped
     ports: 
       - "6911:80"
     volumes:
