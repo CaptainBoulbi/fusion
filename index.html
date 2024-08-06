@@ -68,14 +68,18 @@
                     font-size: 4rem;
                 }
             }
+            #nb_input {
+                width: 3rem;
+                font-size: 1.5rem;
+            }
         </style>
     </head>
     <body>
         <h1>FUSION</h1>
         <p>Trouvez l'inspiration et les idées pour vos projets grâce au subtil mélange de deux mots aléatoires.</p>
+        <p>Nombre de mots a générer : <input id="nb_input" type="number" min="1"></p>
         <main>
             <input type="text" disabled value="tpust" />
-            <br>
             <input type="text" disabled value="tpust" />
             <br>
             <button onclick="generer()">Générer</button>
@@ -106,14 +110,49 @@
                 "création", "imaginaire", "four", "bois", "hélicoptère", "repos", "repas", "nourriture", "cuisiner", "couper", "ego", "surpasser", "super",
                 "flamme", "enfant", "sauver", "programme", "voleur", "banque", "gouverner", "famille", "groupe", "coopérer", "police", "armée", "tank", "avion",
                 "chasse", "pêche", "science", "mouvement", "statue", "créature", "son", "bureau", "travail", "mythologie", "livre", "feuille", "artifice", "explosion",
+                // Le D
+                "effondrement ", "empreinte", "fragile", "horizon", "blessure", "otage", "tapis", "inspecter", "copie", "fraction", "siamois", "arome", "cible",
+                "rivage", "relation", "harem", "mutation", "cadre", "loup", "effacer", "cavalier", "religion", "hallucination", "faux", "bocal", "ancien", "ancêtre",
+                "transport", "verre",
             ];
 
-            function generer() {
-                var inputs = document.getElementsByTagName("input");
-                inputs[0].value = mots[Math.floor(Math.random() * mots.length)];
-                do {
-                    inputs[1].value = mots[Math.floor(Math.random() * mots.length)];
-                } while (inputs[1].value == inputs[0].value);
+            var nbInput = document.getElementById("nb_input");
+            nbInput.value = 2;
+            nbInput.onchange = (state) => {
+                var val = nbInput.value;
+                var inputs = document.getElementsByTagName("main")[0].getElementsByTagName("input");
+                if (val < 1) {
+                    val = 1;
+                    nbInput.value = 1;
+                }
+                if (val > inputs.length)
+                    addInput(inputs, val - inputs.length);
+                else if (val < inputs.length)
+                    removeInput(inputs, inputs.length - val);
+            }
+
+            function removeInput(inputs, n) {
+                for (let i=0; i<n; i++) {
+                    inputs[inputs.length-1].remove();
+                }
+            }
+
+            function addInput(inputs, n) {
+                var begin = inputs.length;
+                for (let i=0; i<n; i++) {
+                    inputs[inputs.length-1].insertAdjacentHTML("afterend", '<input type="text" disabled="disabled">');
+                }
+                generer(begin);
+            }
+
+            function generer(begin = 0) {
+                var inputs = document.getElementsByTagName("main")[0].getElementsByTagName("input");
+                inputs[begin].value = mots[Math.floor(Math.random() * mots.length)];
+                for (let i=begin+1; i<inputs.length; i++) {
+                    do {
+                        inputs[i].value = mots[Math.floor(Math.random() * mots.length)];
+                    } while (inputs[i].value == inputs[i-1].value);
+                }
             }
             generer();
 
