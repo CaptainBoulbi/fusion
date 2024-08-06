@@ -10,14 +10,15 @@
                 font-family: Arial, sans-serif;
                 font-size: 2rem;
                 text-align: center;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
                 background-color: #e0e0e0;
                 color: #333;
                 margin: 0;
                 padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
             }
             h1 {
                 font-size: 3rem;
@@ -26,6 +27,7 @@
             p {
                 font-size: 1.5rem;
                 color: #555;
+                margin-bottom: 0px;
             }
             main {
                 margin-top: 2rem;
@@ -79,8 +81,8 @@
         <p>Trouvez l'inspiration et les idées pour vos projets grâce au subtil mélange de deux mots aléatoires.</p>
         <p>Nombre de mots a générer : <input id="nb_input" type="number" min="1"></p>
         <main>
-            <input type="text" disabled value="tpust" />
-            <input type="text" disabled value="tpust" />
+            <input type="text" disabled />
+            <input type="text" disabled />
             <br>
             <button onclick="generer()">Générer</button>
         </main>
@@ -107,7 +109,7 @@
                 "denrée", "fortune", "math", "mental", "dévorer", "rare", "gemme", "diamant", "or", "féroce", "guerre", "mort", "pays", "mythe", "rune", "château",
                 "parler", "écrire", "dire", "raconter", "chanter", "invoquer", "descente", "enfer", "machine", "souvenir", "seul", "courir", "vide", "chevalier",
                 "agriculture", "ferme", "plante", "moyen âge", "contrôle", "lien", "ensemble", "dé", "aléatoire", "hasard", "pari", "appel", "saut", "voler",
-                "création", "imaginaire", "four", "bois", "hélicoptère", "repos", "repas", "nourriture", "cuisiner", "couper", "ego", "surpasser", "super",
+                "création", "imaginaire", "four", "bois", "hélicoptère", "repos", "repas", "nourriture", "cuisiner", "couper", "ego", "surpasser", "super", "miel",
                 "flamme", "enfant", "sauver", "programme", "voleur", "banque", "gouverner", "famille", "groupe", "coopérer", "police", "armée", "tank", "avion",
                 "chasse", "pêche", "science", "mouvement", "statue", "créature", "son", "bureau", "travail", "mythologie", "livre", "feuille", "artifice", "explosion",
                 // Le D
@@ -118,12 +120,17 @@
 
             var nbInput = document.getElementById("nb_input");
             nbInput.value = 2;
+            nbInput.max = mots.length - 1;
             nbInput.onchange = (state) => {
                 var val = nbInput.value;
                 var inputs = document.getElementsByTagName("main")[0].getElementsByTagName("input");
                 if (val < 1) {
                     val = 1;
                     nbInput.value = 1;
+                }
+                if (val > mots.length - 1) {
+                    val = mots.length - 1;
+                    nbInput.value = mots.length - 1;
                 }
                 if (val > inputs.length)
                     addInput(inputs, val - inputs.length);
@@ -140,18 +147,26 @@
             function addInput(inputs, n) {
                 var begin = inputs.length;
                 for (let i=0; i<n; i++) {
-                    inputs[inputs.length-1].insertAdjacentHTML("afterend", '<input type="text" disabled="disabled">');
+                    inputs[inputs.length-1].insertAdjacentHTML("afterend", '<input type="text" disabled />');
                 }
                 generer(begin);
             }
 
+            function doublon(mot, inputs) {
+                for (let i=0; i<inputs.length-1; i++) {
+                    if (inputs[i].value == mot) return true;
+                }
+                return false;
+            }
+
             function generer(begin = 0) {
                 var inputs = document.getElementsByTagName("main")[0].getElementsByTagName("input");
-                inputs[begin].value = mots[Math.floor(Math.random() * mots.length)];
-                for (let i=begin+1; i<inputs.length; i++) {
+                for (let i=begin; i<inputs.length; i++) {
+                    var mot = "";
                     do {
-                        inputs[i].value = mots[Math.floor(Math.random() * mots.length)];
-                    } while (inputs[i].value == inputs[i-1].value);
+                         mot = mots[Math.floor(Math.random() * mots.length)];
+                    } while (doublon(mot, inputs));
+                    inputs[i].value = mot;
                 }
             }
             generer();
